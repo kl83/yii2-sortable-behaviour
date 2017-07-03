@@ -44,6 +44,11 @@ class SortableBehaviour extends \yii\base\Behavior
      * @var string
      */
     private $primaryKey;
+    /**
+     * Owner model table name
+     * @var string
+     */
+    private $tableName;
 
     /**
      * @inheritdoc
@@ -53,6 +58,7 @@ class SortableBehaviour extends \yii\base\Behavior
         return [
             ActiveRecord::EVENT_INIT => function(){
                 $this->ownerClassName = $this->owner->className();
+                $this->tableName = $this->owner->tableName();
                 $this->primaryKey = implode(',', call_user_func("$this->ownerClassName::primaryKey"));
                 if ( ! $this->titleField ) {
                     if ( array_key_exists('name', $this->owner->attributes) ) {
@@ -92,7 +98,7 @@ class SortableBehaviour extends \yii\base\Behavior
     {
         return implode('-', [
             self::className(),
-            $this->owner->tableName(),
+            $this->tableName,
         ]);
     }
 
@@ -354,8 +360,8 @@ class SortableBehaviour extends \yii\base\Behavior
         return $this->owner
             ->hasMany($this->ownerClassName, [ $this->parentIdField => $this->primaryKey ])
             ->orderBy([
-                "$this->sortField" => SORT_ASC,
-                "$this->primaryKey" => SORT_ASC,
+                "$this->tableName.$this->sortField" => SORT_ASC,
+                "$this->tableName.$this->primaryKey" => SORT_ASC,
             ]);
     }
 
