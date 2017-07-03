@@ -1,7 +1,7 @@
 <?php
 namespace app\models;
 
-class Test extends \yii\db\ActiveRecord
+class TestHierarchical extends \yii\db\ActiveRecord
 {
     public function behaviors()
     {
@@ -9,7 +9,6 @@ class Test extends \yii\db\ActiveRecord
             [
                 'class' => 'kl83\behaviours\SortableBehaviour',
                 'sortField' => 'idx',
-                'parentIdField' => false,
             ],
         ];
     }

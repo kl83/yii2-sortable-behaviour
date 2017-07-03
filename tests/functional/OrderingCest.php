@@ -2,7 +2,7 @@
 
 use app\models\Test;
 
-class orderingCest
+class OrderingCest
 {
     public function _before(FunctionalTester $I)
     {
