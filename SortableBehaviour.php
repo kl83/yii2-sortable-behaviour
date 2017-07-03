@@ -353,7 +353,10 @@ class SortableBehaviour extends \yii\base\Behavior
     {
         return $this->owner
             ->hasMany($this->ownerClassName, [ $this->parentIdField => $this->primaryKey ])
-            ->orderBy("$this->sortField ASC, $this->primaryKey ASC");
+            ->orderBy([
+                "$this->sortField" => SORT_ASC,
+                "$this->primaryKey" => SORT_ASC,
+            ]);
     }
 
     /**
