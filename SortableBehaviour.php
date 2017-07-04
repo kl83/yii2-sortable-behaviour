@@ -152,7 +152,7 @@ class SortableBehaviour extends \yii\base\Behavior
         if ( $result === null ) {
             $result = $moreThen + 100;
         }
-        return $result;
+        return (int)$result;
     }
 
     /**
@@ -175,7 +175,7 @@ class SortableBehaviour extends \yii\base\Behavior
         if ( $result === null ) {
             $result = floor($lessThen / 2);
         }
-        return $result;
+        return (int)$result;
     }
 
     /**
