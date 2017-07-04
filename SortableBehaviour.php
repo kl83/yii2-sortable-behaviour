@@ -238,6 +238,10 @@ class SortableBehaviour extends \yii\base\Behavior
      */
     public function moveAfter($model)
     {
+        if ( ! $model ) {
+            $this->moveFirst();
+            return;
+        }
         if ( is_numeric($model) ) {
             $model = call_user_func("$this->ownerClassName::findOne", $model);
         }
