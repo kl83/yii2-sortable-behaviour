@@ -461,7 +461,9 @@ class SortableBehaviour extends \yii\base\Behavior
     public function getRoot()
     {
         if ( $this->owner->{$this->parentIdField} ) {
-            return $this->getParents()->one();
+            return Yii::$app->db->cache(function(){
+                return call_user_func("$this->ownerClassName::findOne", current($this->getParentsId()));
+            }, null, $this->getTagDependency());
         } else {
             return $this->owner;
         }
