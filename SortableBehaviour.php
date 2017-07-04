@@ -124,7 +124,7 @@ class SortableBehaviour extends \yii\base\Behavior
         if ( $this->parentIdField ) {
             $query->where([ $this->parentIdField => $parentId ]);
         }
-        $data = $query->column();
+        $data = array_map('intval', $query->column());
         foreach ( $data as $i => $itemPK ) {
             call_user_func("$this->ownerClassName::updateAll",
                 [ $this->sortField => ($i + 1) * 100 ],
@@ -315,10 +315,10 @@ class SortableBehaviour extends \yii\base\Behavior
      */
     private static function getChildrenIdRec($ids, $className, $primaryKey, $parentIdField, $recursive)
     {
-        $subIds = $className::find()
+        $subIds = array_map('intval', $className::find()
             ->select($primaryKey)
             ->where([ $parentIdField => $ids ])
-            ->column();
+            ->column());
         if ( $subIds ) {
             if ( $recursive ) {
                 return array_merge($subIds, self::getChildrenIdRec($subIds, $className, $primaryKey, $parentIdField, true));
