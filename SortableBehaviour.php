@@ -404,7 +404,7 @@ class SortableBehaviour extends \yii\base\Behavior
      */
     private function getParentsIdRec($id, $className, $primaryKey, $parentIdField)
     {
-        $parentId = $className::find()->select($parentIdField)->where([ $primaryKey => $id ])->scalar();
+        $parentId = (int)$className::find()->select($parentIdField)->where([ $primaryKey => $id ])->scalar();
         if ( $parentId ) {
             return array_merge(self::getParentsIdRec($parentId, $className, $primaryKey, $parentIdField), [$id]);
         } else {
