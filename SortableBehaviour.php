@@ -529,4 +529,26 @@ class SortableBehaviour extends \yii\base\Behavior
         }
         return $jointParent;
     }
+
+    /**
+     * Sort models alphabetically by $this->titleField
+     * @param integer $parentId If false then sort all table
+     * @param integer $direction SORT_ASC(default) or SORT_DESC
+     */
+    public function sortAlphabetically($parentId = false, $direction = SORT_ASC)
+    {
+        $query = call_user_func("$this->ownerClassName::find")
+            ->select($this->primaryKey)
+            ->orderBy([ $this->titleField => $direction ]);
+        if ( $parentId !== false ) {
+            $query->where([ $this->parentIdField => $parentId ]);
+        }
+        $data = array_map('intval', $query->column());
+        foreach ( $data as $i => $id ) {
+            call_user_func("$this->ownerClassName::updateAll",
+                [ $this->sortField => ($i + 1) * 100 ],
+                [ $this->primaryKey => $id ]);
+        }
+        $this->invalidateTagDependency();
+    }
 }

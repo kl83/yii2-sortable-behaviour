@@ -78,4 +78,22 @@ class HierarchicalCest
         $model = TestHierarchical::findOne(5);
         $I->assertEquals($model->getJointParent(7, true)->id, 7);
     }
+
+    public function tryToTestAlphabeticalSortAllTable(FunctionalTester $I)
+    {
+        (new TestHierarchical)->sortAlphabetically();
+        $I->assertEquals(
+            TestHierarchical::find()->select('name')->orderBy('idx ASC, id ASC')->column(),
+            ["Beef","Candy","Chocolate","Fazer","Horse","Jelly","Juice","Toblerone"]
+        );
+    }
+
+    public function tryToTestAlphabeticalSort(FunctionalTester $I)
+    {
+        (new TestHierarchical)->sortAlphabetically(1);
+        $I->assertEquals(
+            TestHierarchical::find()->select('name')->where([ 'parentId' => 1 ])->orderBy('idx ASC, id ASC')->column(),
+            ["Candy","Chocolate","Jelly"]
+        );
+    }
 }
