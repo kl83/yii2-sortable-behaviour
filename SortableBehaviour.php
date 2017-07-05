@@ -86,9 +86,11 @@ class SortableBehaviour extends \yii\base\Behavior
                 $this->invalidateTagDependency();
             },
             ActiveRecord::EVENT_BEFORE_DELETE => function(){
-                $models = $this->owner->getChildren()->all();
-                foreach ( $models as $model ) {
-                    $model->delete();
+                if ( $this->parentIdField ) {
+                    $models = $this->owner->getChildren()->all();
+                    foreach ( $models as $model ) {
+                        $model->delete();
+                    }
                 }
             }
         ];
