@@ -553,4 +553,38 @@ class SortableBehaviour extends \yii\base\Behavior
         }
         $this->invalidateTagDependency();
     }
+
+    /**
+     * Returns ids of children and subchildren of current model.
+     * @param boolean $includeSelf also returns self id
+     * @param boolean $includeParents also returns parents ids
+     * @return []
+     */
+    public function getTreeIds($includeSelf = true, $includeParents = false)
+    {
+        if ( $includeParents ) {
+            return array_merge($this->getParentsId(), $this->getChildrenId($includeSelf));
+        } else {
+            return $this->getChildrenId($includeSelf);
+        }
+    }
+
+    /**
+     * Returns ActiveQuery to select children and subchildren of current model.
+     * @param boolean $includeSelf also returns self id
+     * @param boolean $includeParents also returns parents ids
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTree($includeSelf = true, $includeParents = false)
+    {
+        return call_user_func("$this->ownerClassName::find")
+            ->where([
+                $this->primaryKey => $this->getTreeIds($includeSelf, $includeParents),
+            ])
+            ->orderBy([
+                "$this->tableName.$this->parentIdField" => SORT_ASC,
+                "$this->tableName.$this->sortField" => SORT_ASC,
+                "$this->tableName.$this->primaryKey" => SORT_ASC,
+            ]);
+    }
 }
