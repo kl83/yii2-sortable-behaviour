@@ -48,46 +48,57 @@ Option|Default|Description
 null moveFirst(int $parentId = false)
 ```
 Moves the model instance to the beginning of `$parentId` domain. If `$parentId` is not set, then the model instance will be the first in its current domain.
+***
 ```
 null moveLast(int $parentId = false)
 ```
 Moves the model instance to the end of `$parentId` domain. If `$parentId` is not set, then the model instance will be the last in its current domain.
+***
 ```
 null moveAfter(Model|int $model)
 ```
 Moves the model instance after `$model`. If `$model` is empty, then moves the model instance to the beginning of his domain.
+***
 ```
 null moveBefore(Model|int $model)
 ```
 Moves the model instance before `$model`.
+***
 ```
 int[] getChildrenId(bool $includeSelf = true, bool $all = true)
 ```
 Returns an array of instance IDs of child models. If `$all` is true, it also includes all sublevels.
+***
 ```
 \yii\db\ActiveQueryInterface getChildren()
 ```
 Returns ActiveQuery to get child models.
+***
 ```
 \yii\db\ActiveQueryInterface getAllChildren(bool $includeSelf = false)
 ```
 Returns ActiveQuery to get instances of child models, including all sublevels.
+***
 ```
 Model getParent()
 ```
 Returns an instance of the parent model.
+***
 ```
 int[] getParentsId(bool $includeSelf = false)
 ```
 Returns an array of instance IDs of parent models. Ordered by depth level.
+***
 ```
 \yii\db\ActiveQueryInterface getParents(bool $includeSelf = false)
 ```
 Returns ActiveQuery to get instances of parent models.
+***
 ```
 Model getRoot()
 ```
 Returns an instance of the root model.
+***
 ```
 string getFullPath(string $delimeter = " &rarr; ", callable $callable = false)
 ```
@@ -97,18 +108,22 @@ function($model, $isRoot, $isLeaf){
   return $model->title;
 }
 ```
+***
 ```
 Model|false getJointParent(Model $model, bool $includeSelf = false)
 ```
 Returns an instance of the joint parent of the current model and `$model`.
+***
 ```
 null sortAlphabetically(int $parentId = false, int $direction = SORT_ASC)
 ```
 Sorting model instances in alphabetical order.
+***
 ```
 int[] getTreeIds(bool $includeSelf = true, bool $includeParents = false)
 ```
 Returns the identifiers of the child model instances, including all sublevels. Also include instance IDs of the parent models, if `$includeParents` is true.
+***
 ```
 \yii\db\ActiveQueryInterface getTree(bool $includeSelf = true, bool $includeParents = false)
 ```
