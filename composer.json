@@ -1,6 +1,7 @@
 {
     "name": "kl83/yii2-sortable-behaviour",
-    "description": "Yii2 behaviours to sort models",
+    "description": "Yii2 behaviours to sort and select records inside adjency table",
+    "keywords": ["yii2", "behavior", "data", "database"],
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "^2.0.0"
