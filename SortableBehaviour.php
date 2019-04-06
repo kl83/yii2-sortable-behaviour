@@ -118,7 +118,7 @@ class SortableBehaviour extends \yii\base\Behavior
      * Reordering models when no more exist free indexes
      * @param integer $parentId Reorder child items of this parent
      */
-    private function reorder($parentId = 0)
+    protected function reorder($parentId = 0)
     {
         $query = call_user_func("$this->ownerClassName::find")
             ->select("$this->primaryKey")
