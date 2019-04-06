@@ -140,7 +140,7 @@ class SortableBehaviour extends \yii\base\Behavior
      * @param integer $moreThen
      * @return integer
      */
-    private function getMinIdx($parentId = 0, $moreThen = false)
+    protected function getMinIdx($parentId = 0, $moreThen = false)
     {
         $query = call_user_func("$this->ownerClassName::find")
             ->select("MIN($this->sortField)");
